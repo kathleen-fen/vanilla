@@ -154,8 +154,24 @@ document.addEventListener('DOMContentLoaded', function(){
         
         document.querySelector("#content").innerHTML="";
         console.log('ar',ar)
-        document.querySelector("#content").appendChild(Content({
-            table: [...ar]
-        }));
+        ar.forEach(el => {
+            document.querySelector("#content").appendChild(Item({
+                item: el.name,
+                id: el.id
+            }));
+        })
+       
     })
 });
+function Item( props = {}) {
+    let state = {
+        item: props.item,
+        id: props.id
+    };
+    let $item_template = document.querySelector("#item");
+    let li = $item_template.content.cloneNode(true);
+    console.log(li)
+    li.querySelector("[data-element='name']").textContent = state.item;
+    li.querySelector("[data-element='id']").textContent = state.id;
+    return li;
+}
